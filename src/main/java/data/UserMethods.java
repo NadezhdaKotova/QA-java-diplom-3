@@ -13,11 +13,18 @@ public class UserMethods {
                 .post(USER_AUTH);
     }
 
-    @Step("Удаление пользователя")
+    @Step("API Удаление пользователя")
     public static void deleteUser(String accessToken) {
         spec()
                 .header("Authorization",accessToken)
                 .when()
                 .delete(USER);
+    }
+    @Step("API Создание нового пользователя")
+    public static Response createUser(User user) {
+        return spec()
+                .body(user)
+                .when()
+                .post(USER_REGISTER);
     }
 }

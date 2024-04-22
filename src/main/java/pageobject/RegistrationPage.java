@@ -11,6 +11,8 @@ public class RegistrationPage {
     private static final By registerPassword = By.xpath(".//label[text() = 'Пароль']/../input[contains(@type, 'password')]");
     private static final By registrationButton = By.xpath(".//button[text()='Зарегистрироваться']");
     public static By registerWrongPasswordMessage = By.xpath(".//p[text()='Некорректный пароль']");
+    private static final By enterButton = By.xpath(".//*[text()='Войти']");
+
     private final WebDriver driver;
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -54,8 +56,11 @@ public class RegistrationPage {
 
 
     @Step("Нажимаем кнопку - Зарегистрироваться")
-    public AuthorizationPage clickRegistrationButton() {
+    public void clickRegistrationButton() {
         driver.findElement(registrationButton).click();
-        return new AuthorizationPage(driver);
+    }
+    @Step("Нажимаем кнопку - Войти")
+    public void clickEnterButton() {
+        driver.findElement(enterButton).click();
     }
 }
