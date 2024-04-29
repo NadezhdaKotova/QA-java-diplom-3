@@ -136,7 +136,7 @@ public class LoginTest {
     @Test
     @DisplayName("Страница Вход. Неуспешная авторизация. Email корректно. Пароль некорректно.")
     @Description("Кнопка Войти - авторизация неуспешна. Пользователь остается на той же странице.")
-    public void checkLoginWithСorrectEmailAndIncorrectPassword() {
+    public void checkLoginWithCorrectEmailAndIncorrectPassword() {
         UserMethods.createUser(user);
         String newPassword = "yandex" + user.getPassword();
         LoginPage loginPage = new LoginPage(driver);

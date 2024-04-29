@@ -20,7 +20,7 @@ public class ConstructorTest {
     }
     @Test
     @DisplayName("Клик по кнопке Булки открывает булки")
-    @Description("")
+    @Description("Проверка, что при клике на булки в зону видимости приезжает заголовок Булки")
     public void clickBuns() {
         MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
@@ -29,8 +29,8 @@ public class ConstructorTest {
         assertEquals("Булки", mainPage.getTextFromSelectedMenu());
     }
     @Test
-    @DisplayName("Клик по кнопке Булки открывает булки")
-    @Description("")
+    @DisplayName("Клик по кнопке Булки открывает соусы")
+    @Description("Проверка, что при клике на булки в зону видимости приезжает заголовок Соусы")
     public void clickSauce() {
         MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
@@ -39,7 +39,7 @@ public class ConstructorTest {
     }
     @Test
     @DisplayName("Клик по кнопке Начинки открывает Начинки")
-    @Description("")
+    @Description("Проверка, что при клике на булки в зону видимости приезжает заголовок Начинки")
     public void clickFillings() {
         MainPage mainPage = new MainPage(driver);
         mainPage.openMainPage();
