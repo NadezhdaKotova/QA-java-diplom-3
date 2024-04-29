@@ -12,9 +12,7 @@ import pojo.User;
 import data.*;
 import pageobject.RegistrationPage;
 import io.restassured.response.Response;
-
 import java.time.Duration;
-
 import static data.URL.*;
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +26,6 @@ public class RegistrationTest {
     public void setUp() {
         //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
         driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
-        driver = new ChromeDriver();
         driver.manage().window().maximize();
         user = UserRandomizer.getNewRandomUser();
     }
@@ -123,6 +120,7 @@ public class RegistrationTest {
     @Step("Удаляем профиль пользователя и закрываем браузер")
     public void tearDown() {
         Response responseLoginUser = UserMethods.loginUser(user);
+        driver.quit();
         try {
             accessToken = responseLoginUser.then().log().all().extract().path("accessToken").toString();
         }
@@ -130,8 +128,7 @@ public class RegistrationTest {
             accessToken = null;
         }
         if (accessToken != null) {
-        UserMethods.deleteUser(accessToken);
+            UserMethods.deleteUser(accessToken);
         }
-        driver.quit();
     }
 }

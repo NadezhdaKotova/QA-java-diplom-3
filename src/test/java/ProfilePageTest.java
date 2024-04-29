@@ -15,9 +15,7 @@ import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.ProfilePage;
 import pojo.User;
-
 import java.time.Duration;
-
 import static data.URL.*;
 import static org.junit.Assert.assertEquals;
 
