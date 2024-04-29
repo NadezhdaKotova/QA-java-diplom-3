@@ -1,4 +1,4 @@
-package manager;
+package data;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +14,7 @@ public class BrowserFactory {
         ChromeOptions options;
         switch (browserName){
             case "chrome":
+
                 WebDriverManager.chromedriver();
                 return new ChromeDriver();
                 /*
@@ -21,7 +22,7 @@ public class BrowserFactory {
                 options = new ChromeOptions();
                 options.addArguments("--remote-allow-origins=*", "start-maximized");
                 return new ChromeDriver(options);
-                */
+                 */
             case "yandex":
                 options = new ChromeOptions();
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/yandexdriver");

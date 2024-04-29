@@ -26,8 +26,8 @@ public class RegistrationTest {
     @Before
     @Step("Запускаем браузер и готовим рандомные данные для регистрации аккаунта")
     public void setUp() {
-        // driver = BrowserFactory.getBrowser(YANDEX); // проверен запуск Яндекс Браузера
-        // driver = BrowserFactory.getBrowser(CHROME_WDM); // chrome с зависимостью WebDriverManager
+        //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
+        driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         user = UserRandomizer.getNewRandomUser();
