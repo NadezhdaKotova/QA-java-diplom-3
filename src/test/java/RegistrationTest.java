@@ -1,33 +1,14 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pojo.User;
-import data.*;
 import pageobject.RegistrationPage;
-import io.restassured.response.Response;
 import java.time.Duration;
 import static data.URL.*;
 import static org.junit.Assert.assertEquals;
 
-public class RegistrationTest {
-    private WebDriver driver;
-    private User user;
-    String accessToken;
-
-    @Before
-    @Step("Запускаем браузер и готовим рандомные данные для регистрации аккаунта")
-    public void setUp() {
-        //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
-        driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
-        driver.manage().window().maximize();
-        user = UserRandomizer.getNewRandomUser();
-    }
+public class RegistrationTest extends BeforeAndAfter{
     @Test
     @DisplayName("Успешная регистрация пользователя. Пароль 6 символов")
     @Description("Страница Регистрация - поля имя корректно, email корректно, пароль 6 символов. Проверка: пользователь попадает на страницу логина")
@@ -113,21 +94,5 @@ public class RegistrationTest {
                 .enterUserDataForRegistration(user);
         //проверка, что перехода на страницу логина не произошло
         assertEquals(REGISTER_PAGE_URL,driver.getCurrentUrl());
-    }
-
-    @After
-    @Step("Удаляем профиль пользователя и закрываем браузер")
-    public void tearDown() {
-        Response responseLoginUser = UserMethods.loginUser(user);
-        driver.quit();
-        try {
-            accessToken = responseLoginUser.then().log().all().extract().path("accessToken").toString();
-        }
-        catch (Exception e) {
-            accessToken = null;
-        }
-        if (accessToken != null) {
-            UserMethods.deleteUser(accessToken);
-        }
     }
 }

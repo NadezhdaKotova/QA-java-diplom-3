@@ -1,23 +1,11 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import pageobject.MainPage;
 import static org.junit.Assert.assertEquals;
-import data.BrowserFactory;
 
-public class ConstructorTest {
-    private WebDriver driver;
+public class ConstructorTest extends BeforeAndAfter {
 
-    @Before
-    @Step("Запускаем браузер")
-    public void setUp() {
-        //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
-        driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
-    }
     @Test
     @DisplayName("Клик по кнопке Булки открывает булки")
     @Description("Проверка, что при клике на булки в зону видимости приезжает заголовок Булки")
@@ -45,10 +33,5 @@ public class ConstructorTest {
         mainPage.openMainPage();
         mainPage.clickMenuFillings();
         assertEquals("Начинки", mainPage.getTextFromSelectedMenu());
-    }
-    @After
-    @Step("Закрываем браузер")
-    public void tearDown() {
-        driver.quit();
     }
 }

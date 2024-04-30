@@ -1,34 +1,15 @@
-import data.BrowserFactory;
 import data.UserMethods;
-import data.UserRandomizer;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import pageobject.LoginPage;
 import pageobject.ForgotPasswordPage;
 import pageobject.MainPage;
 import pageobject.RegistrationPage;
-import pojo.User;
-
 import static data.URL.LOGIN_PAGE_URL;
 import static org.junit.Assert.assertEquals;
 
-public class LoginTest {
-    private WebDriver driver;
-    private User user;
-    String accessToken;
-    @Before
-    @Step("Запускаем браузер и готовим рандомные данные для регистрации аккаунта")
-    public void setUp() {
-        //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
-        driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
-        user = UserRandomizer.getNewRandomUser();
-    }
+public class LoginTest extends BeforeAndAfter{
     @Test
     @DisplayName("Главная. Пользователь не авторизован - проверка текста кнопки Войти в аккаунт")
     @Description("Если пользователь не авторизован, на кнопке Оформить заказ текст - Войти в аккаунт")
@@ -189,21 +170,4 @@ public class LoginTest {
         loginPage.clickEnterButton();
         assertEquals(LOGIN_PAGE_URL,driver.getCurrentUrl());
     }
-
-    @After
-    @Step("Удаляем профиль пользователя и закрываем браузер")
-    public void tearDown() {
-        Response responseLoginUser = UserMethods.loginUser(user);
-        try {
-            accessToken = responseLoginUser.then().log().all().extract().path("accessToken").toString();
-        }
-        catch (Exception e) {
-            accessToken = null;
-        }
-        if (accessToken != null) {
-            UserMethods.deleteUser(accessToken);
-        }
-        driver.quit();
-    }
-
 }

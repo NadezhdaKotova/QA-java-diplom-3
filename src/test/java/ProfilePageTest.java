@@ -1,36 +1,17 @@
-import data.BrowserFactory;
 import data.UserMethods;
-import data.UserRandomizer;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.Response;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobject.LoginPage;
 import pageobject.MainPage;
 import pageobject.ProfilePage;
-import pojo.User;
 import java.time.Duration;
 import static data.URL.*;
 import static org.junit.Assert.assertEquals;
 
-public class ProfilePageTest {
-    private WebDriver driver;
-    private User user;
-    String accessToken;
-    @Before
-    @Step("Запускаем браузер и готовим рандомные данные для регистрации аккаунта")
-    public void setUp() {
-        //driver = BrowserFactory.getDriver("yandex"); // проверен запуск Яндекс Браузера
-        driver = BrowserFactory.getDriver("chrome"); // проверен запуск Яндекс Браузера Chrome
-        driver.manage().window().maximize();
-        user = UserRandomizer.getNewRandomUser();
-    }
+public class ProfilePageTest extends BeforeAndAfter{
     @Test
     @DisplayName("Пользователь не авторизован")
     @Description("При клике на кнопку личный кабинет переход на страницу Авторизации")
@@ -109,20 +90,5 @@ public class ProfilePageTest {
         (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.urlToBe(LOGIN_PAGE_URL));
         assertEquals(LOGIN_PAGE_URL,driver.getCurrentUrl());
 
-    }
-    @After
-    @Step("Удаляем профиль пользователя и закрываем браузер")
-    public void tearDown() {
-        Response responseLoginUser = UserMethods.loginUser(user);
-        try {
-            accessToken = responseLoginUser.then().log().all().extract().path("accessToken").toString();
-        }
-        catch (Exception e) {
-            accessToken = null;
-        }
-        if (accessToken != null) {
-            UserMethods.deleteUser(accessToken);
-        }
-        driver.quit();
     }
 }
