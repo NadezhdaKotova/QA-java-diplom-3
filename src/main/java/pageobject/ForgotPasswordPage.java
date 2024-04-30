@@ -13,7 +13,7 @@ public class ForgotPasswordPage {
     public ForgotPasswordPage(WebDriver driver) {
         this.driver = driver;
     }
-    private static final By loginEnterButton = By.xpath(".//*[text()='Войти']");
+    private static final By LOGIN_ENTER_BUTTON = By.xpath(".//*[text()='Войти']");
     @Step("Открываем страницу - Восстановление пароля")
     public ForgotPasswordPage openForgotPasswordPage() {
         driver.get(FORGOT_PASSWORD_PAGE_URL);
@@ -22,6 +22,6 @@ public class ForgotPasswordPage {
     }
     @Step("Нажимаем кнопку - Войти - на странице Восстановления пароля")
     public void clickEnterButton() {
-        driver.findElement(loginEnterButton).click();
+        driver.findElement(LOGIN_ENTER_BUTTON).click();
     }
 }

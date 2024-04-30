@@ -9,12 +9,12 @@ import java.time.Duration;
 import static data.URL.*;
 
 public class MainPage {
-    private static final By profileButton = By.xpath(".//p[text()='Личный Кабинет']");
-    private static final By orderButton = By.xpath(".//div[@class='BurgerConstructor_basket__container__2fUl3 mt-10']/button");
-    private static final By menuBunButton = By.xpath(".//span[text()='Булки']");
-    private static final By menuFillingsButton = By.xpath(".//span[text()='Начинки']");
-    private static final By menuSauceButton = By.xpath(".//span[text()='Соусы']");
-    private static final By menuInFocus = By.cssSelector("div.tab_tab__1SPyG.tab_tab_type_current__2BEPc.pt-4.pr-10.pb-4.pl-10");
+    private static final By PROFILE_BUTTON = By.xpath(".//p[text()='Личный Кабинет']");
+    private static final By ORDER_BUTTON = By.xpath(".//div[@class='BurgerConstructor_basket__container__2fUl3 mt-10']/button");
+    private static final By MENU_BUN_BUTTON = By.xpath(".//span[text()='Булки']");
+    private static final By MENU_FILLINGS_BUTTON = By.xpath(".//span[text()='Начинки']");
+    private static final By MENU_SAUCE_BUTTON = By.xpath(".//span[text()='Соусы']");
+    private static final By MENU_IN_FOCUS = By.cssSelector("div.tab_tab__1SPyG.tab_tab_type_current__2BEPc.pt-4.pr-10.pb-4.pl-10");
 
 
     private final WebDriver driver;
@@ -29,36 +29,36 @@ public class MainPage {
     }
     @Step("Извлечение текста на кнопке Оформить заказ")
     public String buttonCreateOrderGetText() {
-        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.visibilityOfElementLocated(orderButton));
-        return driver.findElement(orderButton).getText();
+        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.visibilityOfElementLocated(ORDER_BUTTON));
+        return driver.findElement(ORDER_BUTTON).getText();
     }
     @Step("Извлечение текста на кнопке Оформить заказ")
     public void buttonCreateOrderClick() {
-        driver.findElement(orderButton).click();
+        driver.findElement(ORDER_BUTTON).click();
     }
     @Step("Клик по кнопке Личный кабинет")
     public void buttonProfileClick() {
-        driver.findElement(profileButton).click();
+        driver.findElement(PROFILE_BUTTON).click();
     }
     @Step("Нажать на закладку - Булки")
     public void clickMenuBun() {
-        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.elementToBeClickable(menuBunButton));
-        driver.findElement(menuBunButton).click();
+        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.elementToBeClickable(MENU_BUN_BUTTON));
+        driver.findElement(MENU_BUN_BUTTON).click();
     }
 
     @Step("Нажать на закладку - Соусы")
     public void clickMenuSauce() {
-        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.elementToBeClickable(menuSauceButton));
-        driver.findElement(menuSauceButton).click();
+        (new WebDriverWait(driver, Duration.ofSeconds(15))).until(ExpectedConditions.elementToBeClickable(MENU_SAUCE_BUTTON));
+        driver.findElement(MENU_SAUCE_BUTTON).click();
     }
 
     @Step("Нажать на закладку - Начинки")
     public void clickMenuFillings() {
-        driver.findElement(menuFillingsButton).click();
+        driver.findElement(MENU_FILLINGS_BUTTON).click();
     }
 
     @Step("Проверяем текст текущего меню")
     public String getTextFromSelectedMenu() {
-        return driver.findElement(menuInFocus).getText();
+        return driver.findElement(MENU_IN_FOCUS).getText();
     }
 }

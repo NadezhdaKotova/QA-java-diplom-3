@@ -6,12 +6,12 @@ import pojo.User;
 import static data.URL.*;
 
 public class RegistrationPage {
-    private static final By registerName = By.xpath(".//label[text() = 'Имя']/../input[contains(@name, 'name')]");
-    private static final By registerEmail = By.xpath(".//label[text() = 'Email']/../input[contains(@name, 'name')]");
-    private static final By registerPassword = By.xpath(".//label[text() = 'Пароль']/../input[contains(@type, 'password')]");
-    private static final By registrationButton = By.xpath(".//button[text()='Зарегистрироваться']");
-    public static By registerWrongPasswordMessage = By.xpath(".//p[text()='Некорректный пароль']");
-    private static final By enterButton = By.xpath(".//*[text()='Войти']");
+    private static final By REGISTER_NAME = By.xpath(".//label[text() = 'Имя']/../input[contains(@name, 'name')]");
+    private static final By REGISTER_EMAIL = By.xpath(".//label[text() = 'Email']/../input[contains(@name, 'name')]");
+    private static final By REGISTER_PASSWORD = By.xpath(".//label[text() = 'Пароль']/../input[contains(@type, 'password')]");
+    private static final By REGISTRATION_BUTTON = By.xpath(".//button[text()='Зарегистрироваться']");
+    public static By REGISTER_WRONG_PASSWORD_MESSAGE = By.xpath(".//p[text()='Некорректный пароль']");
+    private static final By ENTER_BUTTON = By.xpath(".//*[text()='Войти']");
 
     private final WebDriver driver;
     public RegistrationPage(WebDriver driver) {
@@ -31,36 +31,36 @@ public class RegistrationPage {
     }
     @Step("Проверка ошибки валидации поля пароль")
     public String passwordMistakeGetText() {
-        driver.findElement(registerEmail).click();
-        return driver.findElement(registerWrongPasswordMessage).getText();
+        driver.findElement(REGISTER_EMAIL).click();
+        return driver.findElement(REGISTER_WRONG_PASSWORD_MESSAGE).getText();
     }
 
     // не используются
     @Step("Вводим имя пользователя на странице Регистрация")
     public void enterRegisterName(String name) {
-        driver.findElement(registerName).click();
-        driver.findElement(registerName).sendKeys(name);
+        driver.findElement(REGISTER_NAME).click();
+        driver.findElement(REGISTER_NAME).sendKeys(name);
     }
 
     @Step("Вводим e-mail на странице - Регистрация")
     public void enterRegisterEmail(String email) {
-        driver.findElement(registerEmail).click();
-        driver.findElement(registerEmail).sendKeys(email);
+        driver.findElement(REGISTER_EMAIL).click();
+        driver.findElement(REGISTER_EMAIL).sendKeys(email);
     }
 
     @Step("Вводим пароль на странице - Регистрация")
     public void enterRegisterPassword(String password) {
-        driver.findElement(registerPassword).click();
-        driver.findElement(registerPassword).sendKeys(password);
+        driver.findElement(REGISTER_PASSWORD).click();
+        driver.findElement(REGISTER_PASSWORD).sendKeys(password);
     }
 
 
     @Step("Нажимаем кнопку - Зарегистрироваться")
     public void clickRegistrationButton() {
-        driver.findElement(registrationButton).click();
+        driver.findElement(REGISTRATION_BUTTON).click();
     }
     @Step("Нажимаем кнопку - Войти")
     public void clickEnterButton() {
-        driver.findElement(enterButton).click();
+        driver.findElement(ENTER_BUTTON).click();
     }
 }
