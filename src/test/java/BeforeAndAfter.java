@@ -16,7 +16,7 @@ public class BeforeAndAfter {
     @Before
     @Step("Запускаем браузер и готовим рандомные данные для регистрации аккаунта")
     public void setUp() {
-        driver = BrowserFactory.getDriver("chrome"); //если нужен yandex, то вбиваем "yandex"
+        driver = BrowserFactory.getDriver();
         user = UserRandomizer.getNewRandomUser();
     }
     @After

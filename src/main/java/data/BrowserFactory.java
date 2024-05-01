@@ -3,33 +3,34 @@ package data;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.remote.Augmenter;
+
 /**
  * Паттерн Фабрика:
  * реализуем выбор браузера yandex/chrome
  */
 public class BrowserFactory {
+    public static WebDriver getDriver() {
 
-    public static WebDriver getDriver(String browserName){
-        ChromeOptions options;
-        switch (browserName){
+        WebDriver driver;
+        String browserName = System.getProperty("browser");
+        if (browserName==null) { browserName = ""; };
+
+        ChromeOptions options = new ChromeOptions();
+        switch (browserName) {
             case "chrome":
-
-                WebDriverManager.chromedriver();
-                return new ChromeDriver();
-                /*
-                WebDriverManager.chromedriver().setup();
-                options = new ChromeOptions();
-                options.addArguments("--remote-allow-origins=*", "start-maximized");
-                return new ChromeDriver(options);
-                 */
+            case "":
+                options.addArguments("--remote-allow-origins=*");
+                driver = new ChromeDriver(options);
+                driver = new Augmenter().augment(driver);
+                break;
             case "yandex":
-                options = new ChromeOptions();
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/yandexdriver");
-                options.addArguments("--remote-allow-origins=*", "start-maximized");
-                return new ChromeDriver(options);
-            default:
-                throw new RuntimeException("Incorrect BrowserName");
+                driver = new ChromeDriver(options);
+                driver = new Augmenter().augment(driver);
+                break;
+            default:throw new RuntimeException("Incorrect BrowserName: "+browserName);
         }
+
+        return driver;
     }
 }
